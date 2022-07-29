@@ -33,10 +33,9 @@ nnoremap <leader>E <cmd>lua vim.diagnostic.goto_prev()<CR>
 nnoremap <leader>a <cmd>lua vim.lsp.buf.code_action()<CR>
 nnoremap <leader>rn <cmd>lua vim.lsp.buf.rename()<CR>
   
-nnoremap <leader>d <C-d>
-nnoremap <leader>u <C-u>
+nnoremap <leader>j <C-d>
+nnoremap <leader>k <C-u>
 nnoremap <leader>c <cmd>:bd<CR>
-map <leader>j <Plug>(easymotion-overwin-f2)
 
 nnoremap <leader>n <cmd>TestNearest -strategy=neovim<CR>
 nnoremap <leader>N <cmd>TestFile -strategy=neovim<CR>
@@ -70,7 +69,6 @@ Plug 'neovim/nvim-lspconfig'
 
 Plug 'nvim-telescope/telescope.nvim'
 Plug 'nvim-telescope/telescope-fzf-native.nvim', { 'do': 'make' }
-
 
 Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
 Plug 'p00f/nvim-ts-rainbow'
@@ -108,7 +106,8 @@ Plug 'tpope/vim-commentary'
 Plug 'JoosepAlviste/nvim-ts-context-commentstring' "To make commantary recognize html inside tsx 
 
 Plug 'machakann/vim-highlightedyank'
-Plug 'easymotion/vim-easymotion'
+
+Plug 'ggandor/lightspeed.nvim'
 
 Plug 'nvim-lualine/lualine.nvim'
 
@@ -129,9 +128,10 @@ call plug#end()
 
 syntax on
 colorscheme one
-" hi LineNr guibg=none guifg=#ffffff
 
-lua require'nvim-treesitter.configs'.setup {}
+hi LightspeedLabel guifg=#80ff33 guibg=none 
+hi LightspeedShortcut guifg=#80ff33 guibg=none
+
 lua require('nvim_cmp')
 lua require('nvim_treesitter')
 lua require('toggle_term')
@@ -140,6 +140,8 @@ lua require('telescope_fzf')
 lua require('lsp_config')
 lua require('lua_line')
 lua require('lua_fidget')
+lua require('neo_tree')
+lua require('lightspeed')
 
 "LSP servers
 lua require('lspconfig').tsserver.setup{}
