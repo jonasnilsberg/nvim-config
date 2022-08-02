@@ -23,19 +23,18 @@ nnoremap <leader>w <cmd>:w<CR>
 nnoremap <silent> <leader>gg :LazyGit<CR>
 
 "LSP mappings"
-nnoremap <silent>gd <cmd>lua vim.lsp.buf.definition()<CR>
+nnoremap <silent>gd <cmd>Lspsaga lsp_finder<CR>
 nnoremap <silent>gD <cmd>lua vim.lsp.buf.declaration()<CR>
 nnoremap <silent>gr <cmd>lua vim.lsp.buf.references()<CR>
 nnoremap <silent>gi <cmd>lua vim.lsp.buf.implementation()<CR>
-nnoremap <silent>K <cmd>lua vim.lsp.buf.hover()<CR>
-nnoremap <leader>e <cmd>lua vim.diagnostic.goto_next()<CR>
-nnoremap <leader>E <cmd>lua vim.diagnostic.goto_prev()<CR>
-nnoremap <leader>a <cmd>lua vim.lsp.buf.code_action()<CR>
-nnoremap <leader>rn <cmd>lua vim.lsp.buf.rename()<CR>
+nnoremap <silent>K <cmd>Lspsaga hover_doc<CR>
+nnoremap <leader>e <cmd>Lspsaga diagnostic_jump_next<CR>
+nnoremap <leader>E <cmd>Lspsaga diagnostic_jump_prev<CR>
+nnoremap <leader>a <cmd>Lspsaga code_action<CR>
+nnoremap <leader>rn <cmd>Lspsaga rename<CR>
   
 nnoremap <leader>j <C-d>
 nnoremap <leader>k <C-u>
-nnoremap <leader>c <cmd>:bd<CR>
 
 nnoremap <leader>n <cmd>TestNearest -strategy=neovim<CR>
 nnoremap <leader>N <cmd>TestFile -strategy=neovim<CR>
@@ -59,13 +58,16 @@ nnoremap <silent><leader>7 <Cmd>BufferLineGoToBuffer 7<CR>
 nnoremap <silent><leader>8 <Cmd>BufferLineGoToBuffer 8<CR>
 nnoremap <silent><leader>9 <Cmd>BufferLineGoToBuffer 9<CR>
 nnoremap <leader>c <Cmd>bd<CR> 
+
 imap jj <CR><ESC>O<TAB>
 
 call plug#begin(has('nvim') ? stdpath('data') . '/plugged' : '~/.vim/plugged')
 
 Plug 'nvim-lua/popup.nvim'
 Plug 'nvim-lua/plenary.nvim'
+
 Plug 'neovim/nvim-lspconfig'
+Plug 'glepnir/lspsaga.nvim', { 'branch': 'main' }
 
 Plug 'nvim-telescope/telescope.nvim'
 Plug 'nvim-telescope/telescope-fzf-native.nvim', { 'do': 'make' }
@@ -83,6 +85,8 @@ Plug 'hrsh7th/cmp-buffer'
 Plug 'hrsh7th/cmp-path'
 Plug 'hrsh7th/cmp-cmdline'
 Plug 'hrsh7th/nvim-cmp'
+
+Plug 'wellle/targets.vim'
 
 Plug 'hrsh7th/cmp-vsnip'
 Plug 'hrsh7th/vim-vsnip'
@@ -142,6 +146,7 @@ lua require('lua_line')
 lua require('lua_fidget')
 lua require('neo_tree')
 lua require('lightspeed')
+" lua require('lspsaga-config')
 
 "LSP servers
 lua require('lspconfig').tsserver.setup{}
@@ -171,6 +176,7 @@ let g:dbs = {
 \ 'dev': 'postgres://postgres:postgres@localhost:5432/wpc_db',
 \ }
 
+" Autoformat on save
 augroup fmt
   autocmd!
   autocmd BufWritePre * undojoin | Neoformat
