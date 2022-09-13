@@ -23,7 +23,7 @@ mapping = cmp.mapping.preset.insert({
 }),
 sources = cmp.config.sources({
   { name = 'nvim_lsp' },
-  { name = 'vsnip' }, -- For vsnip users.
+  -- { name = 'vsnip' }, -- For vsnip users.
 }, {
   { name = 'buffer' },
 })

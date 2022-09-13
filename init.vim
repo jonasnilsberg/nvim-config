@@ -1,4 +1,5 @@
 set tabstop=2 softtabstop=2
+set clipboard+=unnamed
 set shiftwidth=2
 set expandtab
 set smartindent
@@ -13,20 +14,33 @@ set hidden
 set scrolloff=8
 set signcolumn=yes
 set mouse=a
-set updatetime=750
+set updatetime=200
+
 
 let mapleader = " "
+nnoremap x "_x
+nnoremap X "_x
+nnoremap c "_c
 nnoremap <leader>f <cmd>Telescope find_files<cr>
 nnoremap <leader>s <cmd>Telescope live_grep<cr>
 nnoremap <leader>t <cmd>Neotree position=float dir=./ toggle reveal<cr>
 nnoremap <leader>w <cmd>:w<CR>
 nnoremap <silent> <leader>gg :LazyGit<CR>
 
+"harpoon
+nnoremap <leader>F <cmd>lua require("harpoon.ui").toggle_quick_menu()<CR>
+nnoremap <leader>ha <cmd>lua require("harpoon.mark").add_file()<CR>
+nnoremap <leader>hn <cmd>lua require("harpoon.ui").nav_next()<CR>
+nnoremap <leader>hN <cmd>lua require("harpoon.ui").nav_prev()<CR>
+
+"undotree
+nnoremap <leader>u <cmd>UndotreeToggle<CR><cmd>UndotreeFocus<CR>
+
 "LSP mappings"
 nnoremap <silent>gd <cmd>Lspsaga lsp_finder<CR>
 nnoremap <silent>gD <cmd>lua vim.lsp.buf.declaration()<CR>
 nnoremap <silent>gr <cmd>lua vim.lsp.buf.references()<CR>
-nnoremap <silent>gi <cmd>lua vim.lsp.buf.implementation()<CR>
+nnoremap <leader>S <cmd>lua vim.lsp.buf.signature_help()<CR>
 nnoremap <silent>K <cmd>Lspsaga hover_doc<CR>
 nnoremap <leader>e <cmd>Lspsaga diagnostic_jump_next<CR>
 nnoremap <leader>E <cmd>Lspsaga diagnostic_jump_prev<CR>
@@ -39,26 +53,7 @@ nnoremap <leader>k <C-u>
 nnoremap <leader>n <cmd>TestNearest -strategy=neovim<CR>
 nnoremap <leader>N <cmd>TestFile -strategy=neovim<CR>
 
-"Copy/Paste to system clipboard"
-vnoremap <leader>y "+y
-nnoremap <leader>y "+y
-nnoremap <leader>p "+p
-vnoremap <leader>p "+p
-
-" Buffers
-nnoremap <leader>b <cmd>:bnext<CR>
-nnoremap <leader>B <cmd>:bprevious<CR>
-nnoremap <silent><leader>1 <Cmd>BufferLineGoToBuffer 1<CR>
-nnoremap <silent><leader>2 <Cmd>BufferLineGoToBuffer 2<CR>
-nnoremap <silent><leader>3 <Cmd>BufferLineGoToBuffer 3<CR>
-nnoremap <silent><leader>4 <Cmd>BufferLineGoToBuffer 4<CR>
-nnoremap <silent><leader>5 <Cmd>BufferLineGoToBuffer 5<CR>
-nnoremap <silent><leader>6 <Cmd>BufferLineGoToBuffer 6<CR>
-nnoremap <silent><leader>7 <Cmd>BufferLineGoToBuffer 7<CR>
-nnoremap <silent><leader>8 <Cmd>BufferLineGoToBuffer 8<CR>
-nnoremap <silent><leader>9 <Cmd>BufferLineGoToBuffer 9<CR>
-nnoremap <leader>c <Cmd>bd<CR> 
-
+" Insert mappings
 imap jj <CR><ESC>O<TAB>
 
 call plug#begin(has('nvim') ? stdpath('data') . '/plugged' : '~/.vim/plugged')
@@ -95,12 +90,16 @@ Plug 'mhinz/vim-startify'
 Plug 'jiangmiao/auto-pairs'
 Plug 'akinsho/toggleterm.nvim'
 
+Plug 'ThePrimeagen/harpoon'
+
+Plug 'mbbill/undotree'
+
 " Themes
 Plug 'folke/tokyonight.nvim'
 Plug 'EdenEast/nightfox.nvim'
 Plug 'rakr/vim-one'
-
-Plug 'akinsho/bufferline.nvim'
+Plug 'navarasu/onedark.nvim'
+Plug 'rebelot/kanagawa.nvim'
 
 Plug 'tpope/vim-surround'
 Plug 'michaeljsmith/vim-indent-object'
@@ -135,18 +134,20 @@ colorscheme one
 
 hi LightspeedLabel guifg=#80ff33 guibg=none 
 hi LightspeedShortcut guifg=#80ff33 guibg=none
+hi LspReferenceText guibg=#43464D
+hi LspReferenceRead guibg=#43464D
+hi LspReferenceWrite guibg=#43464D
 
 lua require('nvim_cmp')
 lua require('nvim_treesitter')
 lua require('toggle_term')
-lua require('buffer_line')
 lua require('telescope_fzf')
 lua require('lsp_config')
 lua require('lua_line')
 lua require('lua_fidget')
 lua require('neo_tree')
 lua require('lightspeed')
-" lua require('lspsaga-config')
+lua require('lspsaga-config')
 
 "LSP servers
 lua require('lspconfig').tsserver.setup{}
@@ -181,3 +182,11 @@ augroup fmt
   autocmd!
   autocmd BufWritePre * undojoin | Neoformat
 augroup END
+
+" LSP document hightlight
+augroup lsp_document_highlight
+  autocmd!
+  autocmd CursorHold,CursorHoldI <buffer> lua vim.lsp.buf.document_highlight()
+  autocmd CursorMoved <buffer> lua vim.lsp.buf.clear_references()
+augroup END
+
