@@ -16,7 +16,6 @@ set signcolumn=yes
 set mouse=a
 set updatetime=200
 
-
 let mapleader = " "
 nnoremap x "_x
 nnoremap X "_x
@@ -67,7 +66,6 @@ Plug 'glepnir/lspsaga.nvim', { 'branch': 'main' }
 Plug 'nvim-telescope/telescope.nvim'
 Plug 'nvim-telescope/telescope-fzf-native.nvim', { 'do': 'make' }
 
-
 Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
 Plug 'nvim-treesitter/nvim-treesitter-context'
 Plug 'p00f/nvim-ts-rainbow'
@@ -96,13 +94,11 @@ Plug 'ThePrimeagen/harpoon'
 
 Plug 'mbbill/undotree'
 
-
 " Themes
 Plug 'folke/tokyonight.nvim'
 Plug 'EdenEast/nightfox.nvim'
 Plug 'rakr/vim-one'
 Plug 'navarasu/onedark.nvim'
-Plug 'rebelot/kanagawa.nvim'
 Plug 'catppuccin/nvim', {'as': 'catppuccin'}
 
 Plug 'tpope/vim-surround'
@@ -113,8 +109,6 @@ Plug 'tpope/vim-commentary'
 Plug 'JoosepAlviste/nvim-ts-context-commentstring' "To make commantary recognize html inside tsx 
 
 Plug 'machakann/vim-highlightedyank'
-
-Plug 'ggandor/lightspeed.nvim'
 
 Plug 'nvim-lualine/lualine.nvim'
 
@@ -131,6 +125,8 @@ Plug 'airblade/vim-gitgutter'
 Plug 'kdheepak/lazygit.nvim' " Needs lazygit installed globally
 Plug 'sbdchd/neoformat' " Needs prettier installed globally
 
+Plug 'mattn/emmet-vim'
+
 call plug#end()
 
 syntax on
@@ -143,8 +139,6 @@ colorscheme catppuccin
 
 
 hi linenr guifg=white
-hi LightspeedLabel guifg=#80ff33 guibg=none 
-hi LightspeedShortcut guifg=#80ff33 guibg=none
 hi LspReferenceText guibg=#43464D
 hi LspReferenceRead guibg=#43464D
 hi LspReferenceWrite guibg=#43464D
@@ -157,7 +151,6 @@ lua require('lsp_config')
 lua require('lua_line')
 lua require('lua_fidget')
 lua require('neo_tree')
-lua require('lightspeed')
 lua require('lspsaga-config')
 
 "LSP servers
@@ -166,8 +159,8 @@ lua require('lspconfig').pyright.setup{}
 lua require('lspconfig').yamlls.setup{}
 lua require('lspconfig').tailwindcss.setup{}
 lua require('lspconfig').html.setup{}
-lua require('emmet')
 
+let g:user_emmet_leader_key=','
 let g:startify_lists = [
   \  {'type': 'files', 'header': ['   Files']},
   \ { 'type': 'dir',       'header': ['   MRU '. getcwd()] },
@@ -193,9 +186,3 @@ augroup fmt
   autocmd!
   autocmd BufWritePre * undojoin | Neoformat
 augroup END
-
-" LSP document hightlight
-" augroup document_highlight
-"   autocmd CursorHold,CursorHoldI <buffer> lua vim.lsp.buf.document_highlight()
-"   autocmd CursorMoved <buffer> lua vim.lsp.buf.clear_references()
-" augroup END

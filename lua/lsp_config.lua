@@ -10,8 +10,7 @@ for type, icon in pairs(signs) do
   vim.fn.sign_define(hl, { text = icon, texthl = hl, numhl = hl })
 end
 
--- Server capabilities spec:
--- https://microsoft.github.io/language-server-protocol/specifications/lsp/3.17/specification/#serverCapabilities
+-- TODO: Add check if lsp server is attatched 
 vim.api.nvim_create_augroup("lsp_document_highlight", { clear = true })
 vim.api.nvim_clear_autocmds { buffer = bufnr, group = "lsp_document_highlight" }
 vim.api.nvim_create_autocmd("CursorHold", {
@@ -26,3 +25,8 @@ vim.api.nvim_create_autocmd("CursorMoved", {
     group = "lsp_document_highlight",
     desc = "Clear All the References",
 })
+require('lspconfig').tsserver.setup{}
+require('lspconfig').pyright.setup{}
+require('lspconfig').yamlls.setup{}
+require('lspconfig').tailwindcss.setup{}
+require('lspconfig').html.setup{}
