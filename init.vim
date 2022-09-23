@@ -67,7 +67,9 @@ Plug 'glepnir/lspsaga.nvim', { 'branch': 'main' }
 Plug 'nvim-telescope/telescope.nvim'
 Plug 'nvim-telescope/telescope-fzf-native.nvim', { 'do': 'make' }
 
+
 Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
+Plug 'nvim-treesitter/nvim-treesitter-context'
 Plug 'p00f/nvim-ts-rainbow'
 Plug 'windwp/nvim-ts-autotag'
 
@@ -94,12 +96,14 @@ Plug 'ThePrimeagen/harpoon'
 
 Plug 'mbbill/undotree'
 
+
 " Themes
 Plug 'folke/tokyonight.nvim'
 Plug 'EdenEast/nightfox.nvim'
 Plug 'rakr/vim-one'
 Plug 'navarasu/onedark.nvim'
 Plug 'rebelot/kanagawa.nvim'
+Plug 'catppuccin/nvim', {'as': 'catppuccin'}
 
 Plug 'tpope/vim-surround'
 Plug 'michaeljsmith/vim-indent-object'
@@ -130,8 +134,15 @@ Plug 'sbdchd/neoformat' " Needs prettier installed globally
 call plug#end()
 
 syntax on
-colorscheme one
+let g:catppuccin_flavour = "frappe" " latte, frappe, macchiato, mocha
+lua << EOF
+require("catppuccin").setup()
+EOF
+colorscheme catppuccin
 
+
+
+hi linenr guifg=white
 hi LightspeedLabel guifg=#80ff33 guibg=none 
 hi LightspeedShortcut guifg=#80ff33 guibg=none
 hi LspReferenceText guibg=#43464D
@@ -184,9 +195,7 @@ augroup fmt
 augroup END
 
 " LSP document hightlight
-augroup lsp_document_highlight
-  autocmd!
-  autocmd CursorHold,CursorHoldI <buffer> lua vim.lsp.buf.document_highlight()
-  autocmd CursorMoved <buffer> lua vim.lsp.buf.clear_references()
-augroup END
-
+" augroup document_highlight
+"   autocmd CursorHold,CursorHoldI <buffer> lua vim.lsp.buf.document_highlight()
+"   autocmd CursorMoved <buffer> lua vim.lsp.buf.clear_references()
+" augroup END
