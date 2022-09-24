@@ -16,6 +16,8 @@ set signcolumn=yes
 set mouse=a
 set updatetime=200
 
+syntax on
+
 let mapleader = " "
 nnoremap x "_x
 nnoremap X "_x
@@ -83,8 +85,8 @@ Plug 'hrsh7th/nvim-cmp'
 
 Plug 'wellle/targets.vim'
 
-Plug 'hrsh7th/cmp-vsnip'
-Plug 'hrsh7th/vim-vsnip'
+Plug 'dcampos/nvim-snippy'
+Plug 'dcampos/cmp-snippy'
 
 Plug 'mhinz/vim-startify'
 Plug 'jiangmiao/auto-pairs'
@@ -129,14 +131,11 @@ Plug 'mattn/emmet-vim'
 
 call plug#end()
 
-syntax on
+
+
 let g:catppuccin_flavour = "frappe" " latte, frappe, macchiato, mocha
-lua << EOF
-require("catppuccin").setup()
-EOF
+lua require("catppuccin").setup()
 colorscheme catppuccin
-
-
 
 hi linenr guifg=white
 hi LspReferenceText guibg=#43464D
@@ -152,13 +151,7 @@ lua require('lua_line')
 lua require('lua_fidget')
 lua require('neo_tree')
 lua require('lspsaga-config')
-
-"LSP servers
-lua require('lspconfig').tsserver.setup{}
-lua require('lspconfig').pyright.setup{}
-lua require('lspconfig').yamlls.setup{}
-lua require('lspconfig').tailwindcss.setup{}
-lua require('lspconfig').html.setup{}
+lua require('snippy_config')
 
 let g:user_emmet_leader_key=','
 let g:startify_lists = [
