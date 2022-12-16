@@ -1,3 +1,4 @@
+require 'window-picker'.setup({})
 require("neo-tree").setup({
   enable_diagnostics = false,
   event_handlers = {

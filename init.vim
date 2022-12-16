@@ -41,8 +41,9 @@ nnoremap <leader>u <cmd>UndotreeToggle<CR><cmd>UndotreeFocus<CR>
 nnoremap <silent>gd <cmd>Lspsaga lsp_finder<CR>
 nnoremap <silent>gD <cmd>lua vim.lsp.buf.declaration()<CR>
 nnoremap <silent>gr <cmd>lua vim.lsp.buf.references()<CR>
-nnoremap <leader>S <cmd>lua vim.lsp.buf.signature_help()<CR>
 nnoremap <silent>K <cmd>Lspsaga hover_doc<CR>
+nnoremap <leader>p <cmd>Lspsaga preview_definition<CR>
+nnoremap <silent>S <cmd>Lspsaga signature_help<CR>
 nnoremap <leader>e <cmd>Lspsaga diagnostic_jump_next<CR>
 nnoremap <leader>E <cmd>Lspsaga diagnostic_jump_prev<CR>
 nnoremap <leader>a <cmd>Lspsaga code_action<CR>
@@ -56,6 +57,8 @@ nnoremap <leader>N <cmd>TestFile -strategy=neovim<CR>
 
 " Insert mappings
 imap jj <CR><ESC>O<TAB>
+inoremap jk <Esc>
+inoremap jl <cmd>lua vim.lsp.buf.completion()<CR>
 
 call plug#begin(has('nvim') ? stdpath('data') . '/plugged' : '~/.vim/plugged')
 
@@ -63,7 +66,9 @@ Plug 'nvim-lua/popup.nvim'
 Plug 'nvim-lua/plenary.nvim'
 
 Plug 'neovim/nvim-lspconfig'
-Plug 'glepnir/lspsaga.nvim', { 'branch': 'main' }
+" Extended version of the typescript lsp
+Plug 'jose-elias-alvarez/typescript.nvim'
+Plug 'kkharji/lspsaga.nvim'
 
 Plug 'nvim-telescope/telescope.nvim'
 Plug 'nvim-telescope/telescope-fzf-native.nvim', { 'do': 'make' }
@@ -76,6 +81,9 @@ Plug 'windwp/nvim-ts-autotag'
 Plug 'nvim-neo-tree/neo-tree.nvim'
 Plug 'kyazdani42/nvim-web-devicons'
 Plug 'MunifTanjim/nui.nvim'
+
+Plug 'github/copilot.vim'
+Plug 'jackMort/ChatGPT.nvim'
 
 Plug 'hrsh7th/cmp-nvim-lsp'
 Plug 'hrsh7th/cmp-buffer'
@@ -95,6 +103,9 @@ Plug 'akinsho/toggleterm.nvim'
 Plug 'ThePrimeagen/harpoon'
 
 Plug 'mbbill/undotree'
+Plug 's1n7ax/nvim-window-picker'
+
+Plug 'RRethy/vim-illuminate'
 
 " Themes
 Plug 'folke/tokyonight.nvim'
@@ -128,7 +139,7 @@ Plug 'kdheepak/lazygit.nvim' " Needs lazygit installed globally
 Plug 'sbdchd/neoformat' " Needs prettier installed globally
 
 Plug 'mattn/emmet-vim'
-
+Plug 'ThePrimeagen/vim-be-good'
 call plug#end()
 
 
@@ -141,6 +152,9 @@ hi linenr guifg=white
 hi LspReferenceText guibg=#43464D
 hi LspReferenceRead guibg=#43464D
 hi LspReferenceWrite guibg=#43464D
+hi def IlluminatedWordText guibg=#3B3F52
+hi def IlluminatedWordRead guibg=#3B3F52
+hi def IlluminatedWordWrite guibg=#3B3F52
 
 lua require('nvim_cmp')
 lua require('nvim_treesitter')
@@ -152,6 +166,7 @@ lua require('lua_fidget')
 lua require('neo_tree')
 lua require('lspsaga-config')
 lua require('snippy_config')
+lua require('copilot')
 
 let g:user_emmet_leader_key=','
 let g:startify_lists = [

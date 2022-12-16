@@ -8,4 +8,8 @@ require("toggleterm").setup{
   terminal_mappings = true, -- whether or not the open mapping applies in the opened terminals
   persist_size = true,
   close_on_exit = true, -- close the terminal window when the process exits
+  on_create = function(term)
+    term:send("figterm")
+  end,
 }
+ 
