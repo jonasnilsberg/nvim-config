@@ -82,7 +82,6 @@ Plug 'nvim-neo-tree/neo-tree.nvim'
 Plug 'kyazdani42/nvim-web-devicons'
 Plug 'MunifTanjim/nui.nvim'
 
-Plug 'github/copilot.vim'
 Plug 'jackMort/ChatGPT.nvim'
 
 Plug 'hrsh7th/cmp-nvim-lsp'
@@ -166,9 +165,9 @@ lua require('lua_fidget')
 lua require('neo_tree')
 lua require('lspsaga-config')
 lua require('snippy_config')
-lua require('copilot')
+lua require('chatgpt').setup({})
 
-let g:user_emmet_leader_key=','
+let g:user_emmet_leader_key='~'
 let g:startify_lists = [
   \  {'type': 'files', 'header': ['   Files']},
   \ { 'type': 'dir',       'header': ['   MRU '. getcwd()] },
