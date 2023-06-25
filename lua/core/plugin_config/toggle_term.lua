@@ -1,5 +1,5 @@
 require("toggleterm").setup{
-  size = 20,  
+  size = 20,
   open_mapping = [[<c-t>]],
   hide_numbers = true, -- hide the number column in toggleterm buffers
   shade_filetypes = {},
@@ -12,4 +12,3 @@ require("toggleterm").setup{
     term:send("figterm")
   end,
 }
- 
