@@ -136,6 +136,9 @@ local plugins = {
     'j-hui/fidget.nvim',
     tag='legacy'
   },
+  'ten3roberts/window-picker.nvim',
+  'https://gitlab.com/yorickpeterse/nvim-window.git',
+  'folke/todo-comments.nvim',
 
   -- Themes
   {
