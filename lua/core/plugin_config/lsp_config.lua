@@ -16,12 +16,7 @@ vim.keymap.set('n', 'rn', ':lua vim.lsp.buf.rename()<CR>')
 -- LSP setups
 local capabilities = require('cmp_nvim_lsp').default_capabilities(vim.lsp.protocol.make_client_capabilities())
 
-require('typescript-tools').setup({
-  server = {
-    capabilities = capabilities,
-    update_in_insert = true
-  }
-})
+require('typescript-tools').setup({})
 
 require('lspconfig').tailwindcss.setup{
   capabilities = capabilities,
