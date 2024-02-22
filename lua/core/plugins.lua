@@ -29,11 +29,22 @@ local plugins = {
     build = ":MasonUpdate" -- :MasonUpdate updates registry contents
   },
   'williamboman/mason-lspconfig.nvim',
-  'jose-elias-alvarez/typescript.nvim',
   'folke/trouble.nvim',
+  {
+    "pmizio/typescript-tools.nvim",
+    dependencies = { "nvim-lua/plenary.nvim", "neovim/nvim-lspconfig" },
+    opts = {},
+  },
   'folke/lsp-colors.nvim',
-  'jose-elias-alvarez/null-ls.nvim',
+  'ThePrimeagen/refactoring.nvim',
+  'wellle/targets.vim', -- Target on same line etc. ci{
+  'towolf/vim-helm', -- Required for helm_ls LSP
 
+  -- Copilot
+  'github/copilot.vim',
+
+  -- Prettier
+  'prettier/vim-prettier',
   -- UI
   'stevearc/dressing.nvim', -- Replace input etc.
 
@@ -120,6 +131,14 @@ local plugins = {
   'vim-test/vim-test',
 
   -- Misc
+  {
+      "sustech-data/wildfire.nvim",
+      event = "VeryLazy",
+      dependencies = { "nvim-treesitter/nvim-treesitter" },
+      config = function()
+          require("wildfire").setup()
+      end,
+  }, -- Text selection
   'startup-nvim/startup.nvim', -- Startup screen
   'RRethy/vim-illuminate', -- Highlight other uses of word under cursor
   { "lukas-reineke/indent-blankline.nvim" }, -- Show indent lines
@@ -139,6 +158,7 @@ local plugins = {
   'ten3roberts/window-picker.nvim',
   'https://gitlab.com/yorickpeterse/nvim-window.git',
   'folke/todo-comments.nvim',
+  'windwp/nvim-ts-autotag',
 
   -- Themes
   {

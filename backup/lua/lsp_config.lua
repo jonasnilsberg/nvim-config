@@ -13,10 +13,12 @@ end
 
 
 -- This also sets up tsserver so no need for require('lspconfig').tsserver.setup{}
-require('typescript').setup({})
+-- require('typescript').setup({})
+require("typescript-tools").setup({})
 
 require('lspconfig').pyright.setup{}
 require('lspconfig').yamlls.setup{}
 require('lspconfig').tailwindcss.setup{}
 require('lspconfig').html.setup{}
 require('lspconfig').eslint.setup{}
+require('lspconfig').intelephense.setup{}
